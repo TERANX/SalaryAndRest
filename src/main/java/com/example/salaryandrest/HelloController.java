@@ -49,7 +49,9 @@ public class HelloController {
     @FXML
     private Button walkToBar;
     @FXML
-    Label lab = new Label();
+    private Button loadInfo;
+    @FXML
+//    Label lab = new Label();
 
     public void loadPeople (GridPane g) throws IOException {
         List<String> list = Files.readAllLines(new File( "C:\\Users\\TERA\\IdeaProjects\\SalaryAndRest\\src\\main\\java\\com\\example\\salaryandrest\\People.txt").toPath());
@@ -57,20 +59,27 @@ public class HelloController {
             String[] words = s.split(",");
             int sal= Integer.parseInt(words[1]);
             int saiv= Integer.parseInt(words[2]);
-            Employers emp = new Employers((words[0]), sal, saiv);
+//            Employers emp = new Employers((words[0]), sal, saiv);
 //            System.out.println(emp);
             Label lab = new Label(String.valueOf(words[0]));
             Label lab1 = new Label(String.valueOf(sal));
             Label lab2 = new Label(String.valueOf(saiv));
             g.add(lab,0 ,0 );
-            g.add(lab1,0,1);
-            g.add(lab2,0,2);
+            g.add(lab1,1,0);
+            g.add(lab2,1,0);
 //            gridFX.setConstraints(lab,0,0);
         }
     }
-//    @FXML
-//    public void showPeople() throws IOException {
-//        loadPeople(gridFX);
-//    }
+    @FXML
+    public void showPeople() throws IOException {
+        loadInfo.setOnAction(actionEvent -> {
+            try {
+                loadPeople(gridFX);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+    }
 
 }
